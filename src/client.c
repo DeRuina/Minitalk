@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:23:39 by druina            #+#    #+#             */
-/*   Updated: 2023/01/31 16:34:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/01/31 16:50:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	send_bit_by_bit(int pid, char c)
 	i = 0;
 	while (i < 8)
 	{
-		if (c & mask != 0)
-			kill(pid, SIGUSR1);
+		if (c & mask == 0)
+			kill(pid, SIGUSR2);
 		else
-      kill(pid, SIGUSR2);
+      kill(pid, SIGUSR1);
 		mask = mask >> 1;
 		i++;
 	}
