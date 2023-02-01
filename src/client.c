@@ -6,33 +6,34 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:23:39 by druina            #+#    #+#             */
-/*   Updated: 2023/01/31 16:50:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/02/01 10:49:20 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_bit_by_bit(int pid, char c)
+static void	send_bit_by_bit(int pid, char c)
 {
 	int	i;
-  int mask;
+	int	mask;
 
-  mask = 0b10000000;
+	mask = 0b10000000;
 	i = 0;
 	while (i < 8)
 	{
-		if (c & mask == 0)
+		if ((c & mask) == 0)
 			kill(pid, SIGUSR2);
 		else
-      kill(pid, SIGUSR1);
+			kill(pid, SIGUSR1);
 		mask = mask >> 1;
+		usleep(100);
 		i++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int pid;
+	int	pid;
 
 	if (argc == 3)
 	{
@@ -44,9 +45,9 @@ int	main(int argc, char **argv)
 			send_bit_by_bit(pid, *argv[2]);
 			argv[2]++;
 		}
+		send_bit_by_bit(pid, '\0');
 	}
 	else
-		return (ft_printf("Hey ASSHOLE, instructions said 2 arguments,try again\n"));
-
+		return (ft_printf("Hey ASSHOLE,instructions said 2 arguments,try again\n"));
 	return (0);
 }
