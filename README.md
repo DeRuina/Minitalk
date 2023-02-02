@@ -13,7 +13,7 @@
 
 ### Behaviour:
 
-1) By running the server executable we start up the server and it displays a message and its process id:
+1) By running the server executable we start up the server and it displays a message and its process id: <br />
 ![server start](img/1.png)
 
 2) By running the client executable with the server's process id as a first argument we can add any string we want as a second argument:
