@@ -1,6 +1,6 @@
 # minitalk
 
-#### This project creates two executables: server & client.
+## - This project creates two executables: server & client.
 
 #### - The client will send information (a string) to the server using UNIX signals and then will dispaly a message after the information has reached the server.
 
