@@ -1,4 +1,4 @@
-# `minitalk`
+# minitalk
 
 #### This project creates two executables: server & client.
 
