@@ -6,13 +6,19 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:23:39 by druina            #+#    #+#             */
-/*   Updated: 2023/02/01 10:49:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/02/02 09:50:58 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	send_bit_by_bit(int pid, char c)
+static void	signal_received(int signal)
+{
+	if (signal == SIGUSR1)
+		ft_printf("signal recieved\n");
+}
+
+static void	send_bit_by_bit(pid_t pid, char c)
 {
 	int	i;
 	int	mask;
@@ -33,12 +39,16 @@ static void	send_bit_by_bit(int pid, char c)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	pid_t				pid;
+	struct sigaction	received;
 
+	received.__sigaction_u.__sa_handler = signal_received;
+	received.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &received, NULL);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		if (pid < 0)
+		if (pid < 0 || !pid)
 			return (ft_printf("Wrong PID, try again\n"));
 		while (*argv[2])
 		{
@@ -48,6 +58,6 @@ int	main(int argc, char **argv)
 		send_bit_by_bit(pid, '\0');
 	}
 	else
-		return (ft_printf("Hey ASSHOLE,instructions said 2 arguments,try again\n"));
+		return (ft_printf("Hey ASSHOLE,you need 2 arguments,try again\n"));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:23:24 by druina            #+#    #+#             */
-/*   Updated: 2023/02/01 11:17:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/02/02 09:49:28 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,14 @@ static char	*append_to_a_string(char *message, char c)
 	return (answer);
 }
 
-static void	handler(int signal)
+static void	signal_handler(int signal, siginfo_t *info, void *context)
 {
-	static char	c;
-	static int	count;
-	static int	mask;
-	static char	*message;
+	static char	c = 0;
+	static int	count = 0;
+	static int	mask = 0b10000000;
+	static char	*message = NULL;
 
-	c = 0;
-	count = 0;
-	mask = 0b10000000;
-	message = NULL;
+	(void)context;
 	if (signal == SIGUSR1)
 		c = c | mask;
 	mask = mask >> 1;
@@ -46,6 +43,7 @@ static void	handler(int signal)
 		if (c == '\0')
 		{
 			ft_printf("%s\n", message);
+			kill(info->si_pid, SIGUSR1);
 			message = NULL;
 		}
 		c = 0;
@@ -56,11 +54,15 @@ static void	handler(int signal)
 
 int	main(void)
 {
+	struct sigaction	print;
+
 	ft_printf("Hey, beautiful person, PID is: %d\n", getpid());
+	print.__sigaction_u.__sa_sigaction = signal_handler;
+	print.sa_flags = SA_SIGINFO;
 	while (1)
 	{
-		signal(SIGUSR1, &handler);
-		signal(SIGUSR2, &handler);
+		sigaction(SIGUSR1, &print, NULL);
+		sigaction(SIGUSR2, &print, NULL);
 		pause();
 	}
 	return (0);
