@@ -1,12 +1,12 @@
 # minitalk
 
-## - This project creates two executables: server & client.
+- This project creates two executables: server & client.
 
-#### - The client will send information (a string) to the server using UNIX signals and then will dispaly a message after the information has reached the server.
+- The client will send information (a string) to the server using UNIX signals and then will dispaly a message after the information has reached the server.
 
-#### - The server must correctly receive and interpret this information, display it and then send a signal back that acknowledges the recieved information.
+- The server must correctly receive and interpret this information, display it and then send a signal back that acknowledges the recieved information.
 
-#### - The Makefile compiles both the server and the client as executables.
+- The Makefile compiles both the server and the client as executables.
 ```bash
  make
 ```
