@@ -22,7 +22,7 @@
 3) The server receives signals which are translated to bits which are then translated to characters. The server prints the result as a string:
 ![server print](img/3.png)
 
-4) Before the printing of the string the server sends a signal back to the client which approves the string was recieved. The client then prints a message:
+4) The server sends a signal back to the client which approves the string was recieved. The client then prints a message:
 ![client print](img/4.png)
 
 #### Additional behaviour:
