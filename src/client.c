@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:23:39 by druina            #+#    #+#             */
-/*   Updated: 2023/02/02 09:50:58 by druina           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:00:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+# include "../libft/src/libft.h"
+# include <signal.h>
+# include <unistd.h>
 
 static void	signal_received(int signal)
 {

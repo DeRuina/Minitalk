@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:23:24 by druina            #+#    #+#             */
-/*   Updated: 2023/02/02 09:49:28 by druina           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:00:48 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+# include "../libft/src/libft.h"
+# include <signal.h>
+# include <unistd.h>
 
 static char	*append_to_a_string(char *message, char c)
 {
